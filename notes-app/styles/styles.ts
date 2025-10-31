@@ -27,5 +27,18 @@ export const STYLES = StyleSheet.create({
         color: "#EEF8FF",
         textAlign: "center",
         fontWeight: "bold",
+    },
+    textInput: {
+        width: "95%",
+        borderRadius: 16,
+        padding: 16,
+        backgroundColor: '#EEF8FF',
+        minHeight: 48,
+    },
+    buttonBack: {
+        backgroundColor: "transparent",
+        outlineColor: "#EEF8FF",
+        outlineWidth: 1,
+        outlineStyle: "solid"
     }
 })

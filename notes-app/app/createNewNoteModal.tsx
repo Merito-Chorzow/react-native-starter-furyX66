@@ -1,4 +1,4 @@
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity,} from 'react-native';
 import {STYLES} from "@/styles/styles";
 import {useState} from "react";
 import {INote} from "@/interfaces/INote";
@@ -29,36 +29,20 @@ export default function CreateNote() {
 
     return (
         <KeyboardAvoidingView behavior={"padding"} style={{flex: 1}}>
-            <View style={STYLES.page}>
-                <TextInput value={title} onChangeText={setTitle} style={styles.textInput} placeholder={"Note title"}/>
-                <TextInput value={description} onChangeText={setDescription} multiline={true} style={styles.textInput}
-                           placeholder={"Note description"}/>
+            <ScrollView style={{flex:1}} contentContainerStyle={STYLES.page}>
+                <TextInput value={title} onChangeText={setTitle} style={STYLES.textInput} placeholder={"Note title"}/>
+                <TextInput value={description} onChangeText={setDescription} multiline={true} style={[STYLES.textInput, {minHeight: 92, textAlignVertical: 'top',}]} placeholder={"Note description"}/>
                 <TouchableOpacity onPress={handleCreateNote} activeOpacity={0.6} style={STYLES.button}>
                     <Text style={STYLES.buttonText}>Add Note</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     Haptics.selectionAsync()
                     router.back()
-                }} activeOpacity={0.6} style={[STYLES.button, styles.buttonBack]}>
+                }} activeOpacity={0.6} style={[STYLES.button, STYLES.buttonBack]}>
                     <Text style={STYLES.buttonText}>Back</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }
 
-const styles = StyleSheet.create({
-    textInput: {
-        width: "95%",
-        borderRadius: 16,
-        padding: 16,
-        backgroundColor: '#EEF8FF',
-        minHeight: 48,
-    },
-    buttonBack: {
-        backgroundColor: "transparent",
-        outlineColor: "#EEF8FF",
-        outlineWidth: 1,
-        outlineStyle: "solid"
-    }
-});

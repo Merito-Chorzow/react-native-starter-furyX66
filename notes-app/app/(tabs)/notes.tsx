@@ -3,10 +3,19 @@ import {STYLES} from "@/styles/styles";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useRouter} from "expo-router";
 import {useNotes} from "@/context/noteProvider";
+import * as Haptics from "expo-haptics";
 
 export default function Notes() {
     const router = useRouter();
     const { notes } = useNotes();
+
+    const openEditNote = (noteId: string) => {
+        Haptics.selectionAsync()
+        router.push({
+            pathname: '/editNoteModal',
+            params: { id: noteId }
+        })
+    }
 
     return (
         <SafeAreaView style={STYLES.page}>
@@ -20,7 +29,7 @@ export default function Notes() {
                       showsHorizontalScrollIndicator={false}
                       showsVerticalScrollIndicator={false}
                       renderItem={({item}) =>
-                          <TouchableOpacity activeOpacity={0.8} key={item.id} style={styles.note}>
+                          <TouchableOpacity onPress={() => openEditNote(item.id.toString())} activeOpacity={0.8} key={item.id} style={styles.note}>
                               <Text style={{fontWeight: "bold"}}>{item.title}</Text>
                               <Text>{item.content}</Text>
                               <Text style={{fontSize:12, opacity:0.5}}>{item.createdAt}</Text>

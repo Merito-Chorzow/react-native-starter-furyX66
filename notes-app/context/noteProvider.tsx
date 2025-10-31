@@ -5,6 +5,7 @@ interface NoteContextType {
     notes: INote[];
     addNote: (note: INote) => void;
     deleteNote: (id: string) => void;
+    updateNote: (id: string, note: Partial<INote>) => void;
 }
 
 const NoteContext = createContext<NoteContextType | undefined>(undefined);
@@ -16,12 +17,18 @@ export const NoteProvider = ({ children }: { children: React.ReactNode }) => {
         setNotes([...notes, note]);
     };
 
+    const updateNote = (id: string, updatedData: Partial<INote>) => {
+        setNotes(notes.map(note =>
+            note.id === id ? { ...note, ...updatedData } : note
+        ));
+    };
+
     const deleteNote = (id: string) => {
         setNotes(notes.filter(note => note.id !== id));
     };
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, deleteNote }}>
+        <NoteContext.Provider value={{ notes, addNote, deleteNote, updateNote}}>
             {children}
         </NoteContext.Provider>
     )
