@@ -1,63 +1,49 @@
-import {useState} from 'react';
-import {StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
-import { STYLES } from "@/styles/styles";
-import * as Haptics from "expo-haptics";
+import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {STYLES} from "@/styles/styles";
 import {SafeAreaView} from "react-native-safe-area-context";
-
-interface Note {
-    id: number,
-    title: string,
-    content: string,
-    createdAt: string,
-}
+import {useRouter} from "expo-router";
+import {useNotes} from "@/context/noteProvider";
 
 export default function Notes() {
-    const [id, setId] = useState<number>(1)
-    const [notes, setNotes] = useState<Note[]>([])
-    const addNote = () => {
-        Haptics.selectionAsync()
-        let curDate = new Date
-        setId(id + 1)
-        setNotes([...notes, {
-            id: id,
-            title: "New note",
-            content: "Note content",
-            createdAt: curDate.toDateString(),
-        }])
-    }
+    const router = useRouter();
+    const { notes } = useNotes();
 
     return (
         <SafeAreaView style={STYLES.page}>
             <Text style={STYLES.title}>My Notes</Text>
-            <TouchableOpacity activeOpacity={0.6} style={STYLES.button} onPress={addNote}>
+            <TouchableOpacity activeOpacity={0.6} style={STYLES.button} onPress={()=>router.navigate("/createNewNoteModal")}>
                 <Text style={STYLES.buttonText}>Add Note</Text>
             </TouchableOpacity>
-            {notes ?
-                <ScrollView contentContainerStyle={styles.notesList}>
-                    {notes.map((note) => (
-                        <TouchableOpacity activeOpacity={0.8} key={note.id} style={styles.note}>
-                            <Text>{note.id}</Text>
-                            <Text>{note.title}</Text>
-                            <Text>{note.content}</Text>
-                            <Text>{note.createdAt}</Text>
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView> : <Text>You have 0 notes</Text>}
+            <FlatList style={{width: "95%"}} contentContainerStyle={styles.notesList}
+                      data={notes}
+                      keyExtractor={(item) => item.id.toString()}
+                      showsHorizontalScrollIndicator={false}
+                      showsVerticalScrollIndicator={false}
+                      renderItem={({item}) =>
+                          <TouchableOpacity activeOpacity={0.8} key={item.id} style={styles.note}>
+                              <Text style={{fontWeight: "bold"}}>{item.title}</Text>
+                              <Text>{item.content}</Text>
+                              <Text style={{fontSize:12, opacity:0.5}}>{item.createdAt}</Text>
+                          </TouchableOpacity>
+                      }
+                      ListEmptyComponent={<Text style={{fontWeight:"bold", color:"#EEF8FF", textAlign:"center"}}>You have 0 notes</Text>}
+                      scrollEnabled={true}
+            />
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     notesList: {
+        alignItems: "stretch",
         justifyContent: "center",
-        flexDirection: "row",
-        flexWrap: "wrap",
         gap: 4,
     },
     note: {
+        width: "100%",
         gap: 4,
         borderRadius: 20,
         padding: 16,
-        backgroundColor: "white"
+        backgroundColor: "#EEF8FF"
     }
 });

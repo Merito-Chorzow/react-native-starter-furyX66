@@ -5,6 +5,7 @@ import 'react-native-reanimated';
 
 import {useColorScheme} from '@/hooks/use-color-scheme';
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import {NoteProvider} from "@/context/noteProvider";
 
 export const unstable_settings = {
     anchor: '(tabs)',
@@ -15,13 +16,15 @@ export default function RootLayout() {
 
     return (
         <SafeAreaProvider>
-            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                <Stack>
-                    <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
-                    <Stack.Screen name="modal" options={{presentation: 'modal', title: 'Modal'}}/>
-                </Stack>
-                <StatusBar style="auto"/>
-            </ThemeProvider>
+            <NoteProvider>
+                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                    <Stack>
+                        <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+                        <Stack.Screen name="createNewNoteModal" options={{presentation: 'modal', title: 'Create new note'}}/>
+                    </Stack>
+                    <StatusBar style="auto"/>
+                </ThemeProvider>
+            </NoteProvider>
         </SafeAreaProvider>
     );
 }

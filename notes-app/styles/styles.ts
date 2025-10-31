@@ -4,6 +4,7 @@ export const STYLES = StyleSheet.create({
     page: {
         flex: 1,
         alignItems: "center",
+        justifyContent: "center",
         gap: 16,
         backgroundColor: "#071013",
     },
