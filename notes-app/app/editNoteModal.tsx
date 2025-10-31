@@ -6,7 +6,7 @@ import * as Haptics from "expo-haptics";
 import {STYLES} from "@/styles/styles";
 
 export default function EditNote() {
-    const {deleteNote, updateNote, notes} = useNotes()
+    const {updateNote, notes} = useNotes()
     const router = useRouter()
     const params = useLocalSearchParams()
     const noteId = params.id as string
