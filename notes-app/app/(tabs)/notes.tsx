@@ -10,6 +10,11 @@ export default function Notes() {
     const router = useRouter();
     const {deleteNote, notes} = useNotes();
 
+    const openCreateNote = () => {
+        Haptics.selectionAsync()
+        router.navigate("/createNewNoteModal")
+    }
+
     const openEditNote = (noteId: string) => {
         Haptics.selectionAsync()
         router.push({
@@ -26,9 +31,8 @@ export default function Notes() {
     return (
         <SafeAreaView style={STYLES.page}>
             <Text style={STYLES.title}>My Notes</Text>
-            <TouchableOpacity activeOpacity={0.6} style={STYLES.button}
-                              onPress={() => router.navigate("/createNewNoteModal")}>
-                <Text style={STYLES.buttonText}>Add Note</Text>
+            <TouchableOpacity activeOpacity={0.6} style={STYLES.button} onPress={openCreateNote}>
+                <Text style={STYLES.buttonText}>Create new note</Text>
             </TouchableOpacity>
             <FlatList style={{width: "95%"}} contentContainerStyle={styles.notesList}
                       data={notes}
@@ -44,7 +48,7 @@ export default function Notes() {
                                   <Text style={{fontSize: 12, opacity: 0.5}}>{item.createdAt}</Text>
                               </View>
                               <TouchableOpacity onPress={() => removeSelectedNote(item.id)} style={{height:64, width: 64, alignItems: "center", justifyContent:"center"}}>
-                                  <Ionicons name="trash-bin" size={32} color="red"/>
+                                  <Ionicons name="trash-bin" size={28} color="red"/>
                               </TouchableOpacity>
                           </TouchableOpacity>
                       }
