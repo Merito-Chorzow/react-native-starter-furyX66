@@ -22,6 +22,12 @@ export const STYLES = StyleSheet.create({
         borderRadius: 16,
         justifyContent: 'center',
     },
+    text:{
+        fontSize: 16,
+        color: "#EEF8FF",
+        textAlign: "center",
+        fontWeight: "regular",
+    },
     buttonText: {
         fontSize: 16,
         color: "#EEF8FF",
