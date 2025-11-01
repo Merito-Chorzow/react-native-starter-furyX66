@@ -5,9 +5,9 @@ This is React Native [Expo](https://expo.dev) project created with [`create-expo
 
 ## Features
 -Create, edit and delete notes  
--Get current location via GPS using [expo-location](https://docs.expo.dev/versions/latest/sdk/location/) 
+-Get current location via GPS using [expo-location](https://docs.expo.dev/versions/latest/sdk/location/)  
 -Get weather in current location using [Open-Meteo](https://open-meteo.com/en/docs) free API  
--Safe area screen support
+-Safe area screen support  
 -Haptics feedback
 
 
@@ -32,4 +32,4 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-I suggest you to use Expo Go app to test app with comfort
+I suggest you to use [Expo Go](https://expo.dev/go) app to test app with comfort
